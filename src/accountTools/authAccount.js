@@ -49,23 +49,23 @@ const AuthAccount = () => {
     }
 
     return (
-        <div class="main__container-signIn">
-            <div class="signIn-title">
+        <div className="main__container-signIn">
+            <div className="signIn-title">
                 Sign in
             </div>
-            <div class="signIn-error">
+            <div className="signIn-error">
                 {authStatus}
             </div>
 
-            <div class="signIn-form">
+            <div className="signIn-form">
                 <form onSubmit={authAccount}>
-                    <label for="uEmail">Email</label>
+                    <label htmlFor="uEmail">Email</label>
                     <input type="email" id="uEmail" value={uEmail} onChange={e => setUEmail(e.target.value)} style={{borderBottom: border}}></input>
                     <p>{error}</p>                        
-                    <label for="uPassword">Password</label>
+                    <label htmlFor="uPassword">Password</label>
                     <input type="password" id="uPassword" value={uPass} onChange={e => setUPass(e.target.value)} style={{borderBottom: border}}></input>
                     <p>{error}</p>                        
-                        <div class="signIn-Btn">
+                        <div className="signIn-Btn">
                             <button type='submit'>Sign In</button>
                         </div>
                 </form>

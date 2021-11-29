@@ -45,31 +45,31 @@ const CreateProfile = () => {
     }
     
     return(
-        <div class="main__container-edit">
-            <div class="container-edit">
+        <div className="main__container-edit">
+            <div className="container-edit">
                 <form onSubmit={createProfile}>
-                    <label for="name">name:</label>
-                    <input type="text" id="name" value={uName} onChange={e => setUName(e.target.value)}></input>                        
-                    <label for="surname">surname:</label>
-                    <input type="text" id="surname" value={uSurname} onChange={e => setUSurname(e.target.value)}></input>
+                    <label htmlFor="name">name:</label>
+                    <input data-testid="input-name" type="text" id="name" value={uName} onChange={e => setUName(e.target.value)}></input>                        
+                    <label htmlFor="surname">surname:</label>
+                    <input data-testid="input-surname" type="text" id="surname" value={uSurname} onChange={e => setUSurname(e.target.value)}></input>
                     <label>gender:</label>
-                    <div class="radio-gender">
-                        <div class="male">
+                    <div className="radio-gender">
+                        <div className="male">
                             <input type="radio" name="gender" id="male" value="male" onChange={e => setUMGender(e.target.checked)}></input>
-                            <label for="male">male</label>
+                            <label htmlFor="male">male</label>
                         </div>
-                        <div class="male">
+                        <div className="male">
                             <input type="radio" name="gender" id="female" value="female" onChange={e => setUFGender(e.target.checked)}></input>
-                            <label for="female">female</label>
+                            <label htmlFor="female">female</label>
                         </div>
                     </div>
-                    <label for="profiledb">birthdate:</label>
-                    <input type="text" name="profilebd" id="profiledb" value={uBd} onChange={e => setUBd(e.target.value)}></input>
-                    <label for="profilec">city:</label>
-                    <input type="text" name="profilec" id="profilec" value={uCity} onChange={e => setUCity(e.target.value)}></input>
-                    <div class="edit-btns">
-                        <button type='submit' class="accept-change"><i class="fas fa-check"></i></button>
-                        <button onClick={closeCreate} type='submit' class="reject-change"><i class="fas fa-times"></i></button>
+                    <label htmlFor="profiledb">birthdate:</label>
+                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" value={uBd} onChange={e => setUBd(e.target.value)}></input>
+                    <label htmlFor="profilec">city:</label>
+                    <input data-testid="input-city" type="text" name="profilec" id="profilec" value={uCity} onChange={e => setUCity(e.target.value)}></input>
+                    <div className="edit-btns">
+                        <button data-testid="accept" type='submit' className="accept-change"><i className="fas fa-check"></i></button>
+                        <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>
                     </div>
                 </form>
             </div>

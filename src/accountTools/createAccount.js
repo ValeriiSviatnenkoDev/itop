@@ -56,30 +56,30 @@ const CreateAccount = () => {
     }
     
     return(
-        <div class="main__container-signUp">
-            <div class="signUp-title">
+        <div className="main__container-signUp">
+            <div className="signUp-title">
                 Create your account
             </div>
-            <div class="signUp-error">
+            <div className="signUp-error">
                 {validAccount}
             </div>
 
-            <div class="signUp-form">
+            <div className="signUp-form">
                 <form onSubmit={createAccount}>
-                    <label for="userName">Username</label>
+                    <label htmlFor="userName">Username</label>
                     <input type="text" id="userName" value={UserName} onChange={e => setUName(e.target.value)} style={UserName.length <= 0 ? {borderBottom: border} : null}></input>
                     <p>{validNick}</p> 
-                    <label for="userEmail">Email</label>
+                    <label htmlFor="userEmail">Email</label>
                     <input type="email" id="userEmail" value={UserEmail} onChange={e => setUEmail(e.target.value)} style={UserEmail.length <= 0 ? {borderBottom: border} : null}></input>
                     <p>{validEmail}</p> 
-                    <label for="userPassword">Password</label>
+                    <label htmlFor="userPassword">Password</label>
                     <input type="password" id="userPassword" value={UserPassword} onChange={e => setUPassword(e.target.value)} style={UserPassword.length <= 0 ? {borderBottom: border} : null}></input>
                     <p>{validPass}</p> 
-                    <div class="signUp-checkBtn">
+                    <div className="signUp-checkBtn">
                         <input type="checkbox" name="radioAdmin" id="checkBox" value='User' onChange={e => e.target.checked && setURole('Admin')}></input>
-                        <label for="checkBox">is admin</label>
+                        <label htmlFor="checkBox">is admin</label>
                     </div>
-                    <div class="signUp-Btn">
+                    <div className="signUp-Btn">
                         <button type="submit">Sign Up</button>
                     </div>
                 </form>
