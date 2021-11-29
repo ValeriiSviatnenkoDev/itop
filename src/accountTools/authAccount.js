@@ -60,10 +60,10 @@ const AuthAccount = () => {
             <div className="signIn-form">
                 <form onSubmit={authAccount}>
                     <label htmlFor="uEmail">Email</label>
-                    <input type="email" id="uEmail" value={uEmail} onChange={e => setUEmail(e.target.value)} style={{borderBottom: border}}></input>
+                    <input data-testid="email" type="email" id="uEmail" value={uEmail} onChange={e => setUEmail(e.target.value)} style={{borderBottom: border}}></input>
                     <p>{error}</p>                        
                     <label htmlFor="uPassword">Password</label>
-                    <input type="password" id="uPassword" value={uPass} onChange={e => setUPass(e.target.value)} style={{borderBottom: border}}></input>
+                    <input data-testid="email" type="password" id="uPassword" value={uPass} onChange={e => setUPass(e.target.value)} style={{borderBottom: border}}></input>
                     <p>{error}</p>                        
                         <div className="signIn-Btn">
                             <button type='submit'>Sign In</button>
