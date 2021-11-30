@@ -67,13 +67,13 @@ const CreateAccount = () => {
             <div className="signUp-form">
                 <form onSubmit={createAccount}>
                     <label htmlFor="userName">Username</label>
-                    <input type="text" id="userName" value={UserName} onChange={e => setUName(e.target.value)} style={UserName.length <= 0 ? {borderBottom: border} : null}></input>
+                    <input data-testid="username" type="text" id="userName" value={UserName} onChange={e => setUName(e.target.value)} style={UserName.length <= 0 ? {borderBottom: border} : null}></input>
                     <p>{validNick}</p> 
                     <label htmlFor="userEmail">Email</label>
-                    <input type="email" id="userEmail" value={UserEmail} onChange={e => setUEmail(e.target.value)} style={UserEmail.length <= 0 ? {borderBottom: border} : null}></input>
+                    <input data-testid="email" type="email" id="userEmail" value={UserEmail} onChange={e => setUEmail(e.target.value)} style={UserEmail.length <= 0 ? {borderBottom: border} : null}></input>
                     <p>{validEmail}</p> 
                     <label htmlFor="userPassword">Password</label>
-                    <input type="password" id="userPassword" value={UserPassword} onChange={e => setUPassword(e.target.value)} style={UserPassword.length <= 0 ? {borderBottom: border} : null}></input>
+                    <input data-testid="password" type="password" id="userPassword" value={UserPassword} onChange={e => setUPassword(e.target.value)} style={UserPassword.length <= 0 ? {borderBottom: border} : null}></input>
                     <p>{validPass}</p> 
                     <div className="signUp-checkBtn">
                         <input type="checkbox" name="radioAdmin" id="checkBox" value='User' onChange={e => e.target.checked && setURole('Admin')}></input>

@@ -33,8 +33,7 @@ class Main extends React.Component {
                                 <Route path="/user-register" element={<CreateAccount />} />
                                 <Route path="/user-login" element={<AuthAccount />} />
                             </Routes>
-                        }
-                        
+                        }  
                 </BrowserRouter>
             </div>
         </main>
