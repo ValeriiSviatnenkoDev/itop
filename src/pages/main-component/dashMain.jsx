@@ -11,7 +11,7 @@ const DashboardMain = () => {
         try {
             const response = await fetch('http://localhost:5000/get-users');
             const jsonData = await response.json();
-            SetUsers(jsonData.length)
+            SetUsers(jsonData.users.length)
         } catch (error) {
             console.log(error.message);
         }
@@ -21,7 +21,7 @@ const DashboardMain = () => {
         try {
             const response = await fetch('http://localhost:5000/get-profiles');
             const jsonData = await response.json();
-            SetProfiles(jsonData.length);
+            SetProfiles(jsonData.profiles.length);
             SetProfilesYo(jsonData);
 
             let j = 0;
