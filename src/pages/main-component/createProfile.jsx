@@ -25,7 +25,7 @@ const CreateProfile = () => {
             const uid = JSON.parse(localStorage.getItem('user')); 
             setUId(uid.userid);
 
-            const data = { "ProfileUserId": uId, "ProfileName": uName, "ProfileSurname": uSurname, "ProfileGender": gender, "ProfileBd": uBd, "ProfileCity": uCity};
+            const data = { "ProfileUserId": uId, "ProfileName": uName, "ProfileSurname": uSurname, "ProfileGender": gender, "ProfileBd": uBd, "ProfileCity": uCity };
             const response = await fetch('http://localhost:5000/profile-create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

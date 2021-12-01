@@ -1,44 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-class AdminHeader extends React.Component {
-    constructor(props) {
-        super(props);
+const AdminHeader = () => {
+    const [user, setUser] = useState('');
 
-        this.state = {
-            user: JSON.parse(localStorage.getItem('user'))
-        }
-
-        this.logOutAcc = this.logOutAcc.bind(this);
+    const AdminHeader = async (e) => {
+        setUser(JSON.parse(localStorage.getItem("user")));
     }
 
-    logOutAcc() {
+    const logOutAcc = async (e) => {
         localStorage.removeItem('status');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
     }
 
-    render() {
-        return(
-            <header>
-                <div class="header__container">
-                    <div class="header__container-user">
+    useEffect(() => {
+        AdminHeader();
+    }, []);
+
+    return(
+        <header>
+                <div className="header__container">
+                    <div className="header__container-user">
                         <a href="/get-profiles"><img src="./img/adminAvatar.png" alt="defaultAvatar"></img></a>
-                        <a data-testid="username" class="user-link__userName" href="/get-profiles">{this.state.user.username}</a>
+                        <a data-testid="username" className="user-link__userName" href="/get-profiles">{user.username}</a>
                     </div>
             
-                    <div class="header__container-navigation">
-                        <a data-testid="to-profiles" href="/get-profiles">Profiles <i class="fas fa-user-circle"></i></a>
-                        <a data-testid="to-dashboard" href="/get-dashboard">Dashboard <i class="fas fa-chart-line"></i></a>
-                        <a data-testid="to-users" href="/get-users">Users <i class="fas fa-user-friends"></i></a>
+                    <div className="header__container-navigation">
+                        <a data-testid="to-profiles" href="/get-profiles">Profiles <i className="fas fa-user-circle"></i></a>
+                        <a data-testid="to-dashboard" href="/get-dashboard">Dashboard <i className="fas fa-chart-line"></i></a>
+                        <a data-testid="to-users" href="/get-users">Users <i className="fas fa-user-friends"></i></a>
                     </div>
             
-                    <div class="header__container-userAccount">
-                        <a data-testid="to-login" href="/user-login" onClick={this.logOutAcc}>Log Out</a>
+                    <div className="header__container-userAccount">
+                        <a data-testid="to-login" href="/user-login" onClick={logOutAcc}>Log Out</a>
                     </div>
                 </div>    
-            </header>
-        );
-    }
+        </header>
+    )
 }
 
 export default AdminHeader;

@@ -1,5 +1,5 @@
 import React from "react";
-import AuthAccount from "../../accountTools/authAccount.js";
+import AuthAccount from "../../accountTools/authAccount.js"
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
 import "@testing-library/jest-dom/extend-expect";
