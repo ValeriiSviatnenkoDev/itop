@@ -130,27 +130,27 @@ const UsersMain = () => {
         <div>
             {
                 showEditUser ?
-                    <div class="main__container-edit">
-                        <div class="container-edit-user">
+                    <div className="main__container-edit">
+                        <div className="container-edit-user">
                             <form onSubmit={sendUpdateUser}>
                                 <label for="name">nick name:</label>
                                 <input type="text" id="nickname" value={newUserNick} placeholder={userNick} onChange={e => setNewNick(e.target.value)}></input>                        
                                 <label for="surname">email:</label>
                                 <input type="email" id="email" value={newUserEmail} placeholder={userEmail} onChange={e => setNewEmail(e.target.value)}></input>
                                 <label>role:</label>
-                                <div class="radio-roles">
-                                    <div class="role">
+                                <div className="radio-roles">
+                                    <div className="role">
                                         <input type="radio" name="role" id="user" value="user" defaultChecked={userRole === 'User' ? true : false} onChange={e => e.target.checked && setRole('User')}></input>
                                         <label for="user">user</label>
                                     </div>
-                                    <div class="role">
+                                    <div className="role">
                                         <input type="radio" name="role" id="admin" value="admin" defaultChecked={userRole === 'Admin' ? true : false} onChange={e => e.target.checked && setRole('Admin')}></input>
                                         <label for="admin">admin</label>
                                     </div>
                                 </div>
-                                <div class="edit-btns">
-                                    <button type='submit' class="accept-change"><i class="fas fa-check"></i></button>
-                                    <button onClick={closeCreate} type='submit' class="reject-change"><i class="fas fa-times"></i></button>
+                                <div className="edit-btns">
+                                    <button type='submit' className="accept-change"><i className="fas fa-check"></i></button>
+                                    <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>
                                 </div>
                             </form>
                         </div>
@@ -162,35 +162,35 @@ const UsersMain = () => {
             {
                showUser ? 
                 <div>
-                    <div class="main__container-info">
-                        <div class="container-user">
+                    <div className="main__container-info">
+                        <div className="container-user">
                             <p>{userNick}</p>
                             <p>{userEmail}</p>
-                            <p class="userrole">{userRole}</p>
-                            <div class="control-btns">
-                                <i onClick={e => editUser(e, userId)} class="fas fa-pencil-alt"></i>
-                                <i onClick={deleteUser} class="far fa-trash-alt"></i>
+                            <p className="userrole">{userRole}</p>
+                            <div className="control-btns">
+                                <i onClick={e => editUser(e, userId)} className="fas fa-pencil-alt"></i>
+                                <i onClick={deleteUser} className="far fa-trash-alt"></i>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div>
-                            <div class="main__container-title">
+                            <div className="main__container-title">
                                 Profiles:
                             </div>
-                            <div class="main__container-profiles">
+                            <div className="main__container-profiles">
                             {
                                 profiles.filter(x => x.profileuserid == userId).map(profile => (
-                                    <div class="profile-card">
-                                        <div class="profile-info">
-                                            <p class="pTitle">{profile.profilename} {profile.profilesurname}</p>
+                                    <div className="profile-card">
+                                        <div className="profile-info">
+                                            <p className="pTitle">{profile.profilename} {profile.profilesurname}</p>
                                             <p>{profile.profilegender}</p>
                                             <p>{profile.profilebd}</p>
                                             <p>{profile.profilecity}</p>
                                         </div>
-                                        <div class="profile-btn">
-                                            <button onClick={editProfile} class="btn-edit">edit <i class="fas fa-pencil-alt"></i></button>
-                                            <button onClick={e => deleteProfile(e, profile.profileid)} class="btn-delete">delete <i class="far fa-trash-alt"></i></button>
+                                        <div className="profile-btn">
+                                            <button onClick={editProfile} className="btn-edit">edit <i className="fas fa-pencil-alt"></i></button>
+                                            <button onClick={e => deleteProfile(e, profile.profileid)} className="btn-delete">delete <i className="far fa-trash-alt"></i></button>
                                         </div>
                                     </div>
                                 ))
@@ -203,21 +203,21 @@ const UsersMain = () => {
                 : 
                 /* FALSE */
                 <div>
-                    <div class="main__container-title">
+                    <div className="main__container-title">
                         Users:
                     </div>
                     {
                     isLoading && 
-                    <div class="main__container-load">
-                        <div class="lds-dual-ring"></div>
+                    <div className="main__container-load">
+                        <div className="lds-dual-ring"></div>
                     </div>
                     }
-                    <div class="main__container-users">
+                    <div className="main__container-users">
                         {
                             users.map(user => (
-                                <div onClick={e => openUser(e, user)} class="user-card">
-                                    <div class="user-info">
-                                        <p class="pTitle">{user.username}</p>
+                                <div onClick={e => openUser(e, user)} className="user-card">
+                                    <div className="user-info">
+                                        <p className="pTitle">{user.username}</p>
                                         <p>{user.useremail}</p>
                                         <p>{profiles.filter(x => x.profileuserid == user.userid).length} Profiles</p>
                                     </div>

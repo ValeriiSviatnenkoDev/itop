@@ -43,26 +43,26 @@ const DashboardMain = () => {
     })
 
     return (
-        <div class="main__container-dashboard">
+        <div className="main__container-dashboard">
 
-            <div class="dashboard__title"> 
+            <div className="dashboard__title"> 
                 Dashboard:
             </div>
 
-            <div class="dashboard__cards">
-                <div class="cards dashboard__cards-users">
+            <div className="dashboard__cards">
+                <div className="cards dashboard__cards-users">
                     <p>Users:</p>
-                    <p class="format count__users">{users}</p>
+                    <p className="format count__users">{users}</p>
                 </div>
 
-                <div class="cards dashboard__cards-profiles">
+                <div className="cards dashboard__cards-profiles">
                     <p>Profiles</p>
-                    <p class="format count__profiles">{profiles}</p>
+                    <p className="format count__profiles">{profiles}</p>
                 </div>
 
-                <div class="cards dashboard__cards-yo">
+                <div className="cards dashboard__cards-yo">
                     <p>Profiles over 18 years old:</p>
-                    <p class="format count__yo">{countProfilesYo}</p>
+                    <p className="format count__yo">{countProfilesYo}</p>
                 </div>
             </div>
         </div>
