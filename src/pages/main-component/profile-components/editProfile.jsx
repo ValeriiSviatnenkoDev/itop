@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import ProfileContext from "./contextProfile.js";
 
 const EditProfile = (props) => {
-    const profileId = props.profileid;
-
     const [border, setBorderColor] = useState('1px solid #14142B');
     const [error, setErrorMsg] = useState('');
+
+    const profileId = useContext(ProfileContext);
 
     const [uName, setUName] = useState('');
     const [uSurname, setUSurname] = useState('');
@@ -22,6 +23,7 @@ const EditProfile = (props) => {
                 if (gender === '') {
                     return alert('Please, select profile gender!');
                 }
+
 
                 const data = { "ProfileId": profileId, "ProfileName": uName, "ProfileSurname": uSurname, "ProfileGender": gender, "ProfileBd": uBd, "ProfileCity": uCity };
                 const response = await fetch('http://localhost:5000/up-profile/:id', {

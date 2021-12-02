@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const OutputProfiles = () => {
-    const [isLoading, setLoading] = useState(false);
-    const [profiles, setProfiles] = useState('');
+const OutputProfiles = (props) => {
+    const [profiles, setProfiles] = useState([]);
     const [userId, setUId] = useState('');
 
     const outputProfiles = async (e) => {
         try {
-            setLoading(true);
+            props.setLoading(true);
             const response = await fetch('http://localhost:5000/get-profiles');
             const jsonData = await response.json();
             setProfiles(jsonData.profiles);
@@ -15,9 +14,11 @@ const OutputProfiles = () => {
             const uId = JSON.parse(localStorage.getItem('user'));
             setUId(uId.userid);
 
-            setLoading(false);
+            console.log(profiles)
+
+            props.setLoading(false);
         } catch (error) {
-            setLoading(false);
+            props.setLoading(false);
             console.log(error.message);
         }
     }
@@ -39,8 +40,9 @@ const OutputProfiles = () => {
         }
     }
 
-    const editProfile = () => {
-
+    const editProfile = (e, id) => {
+        props.setShowEdit(true);
+        props.setProfileId(id);
     }
 
     useEffect(() => {
@@ -49,22 +51,22 @@ const OutputProfiles = () => {
 
     return (
         <>
-        {
-            profiles.filter(x => x.profileuserid === userId).map(profile => (
-                <div className="profile-card">
-                    <div className="profile-info">
-                        <p className="pTitle">{profile.profilename} {profile.profilesurname}</p>
-                        <p>{profile.profilegender}</p>
-                        <p>{profile.profilebd}</p>
-                        <p>{profile.profilecity}</p>
+            {
+                profiles.filter(x => x.profileuserid === userId).map(profile => (
+                    <div className="profile-card">
+                        <div className="profile-info">
+                            <p className="pTitle">{profile.profilename} {profile.profilesurname}</p>
+                            <p>{profile.profilegender}</p>
+                            <p>{profile.profilebd}</p>
+                            <p>{profile.profilecity}</p>
+                        </div>
+                        <div className="profile-btn">
+                            <button data-testid="edit-btn" onClick={e => editProfile(e, profile.profileid)} className="btn-edit">edit <i className="fas fa-pencil-alt"></i></button>
+                            <button onClick={e => deleteProfile(e, profile.profileid)} className="btn-delete">delete <i className="far fa-trash-alt"></i></button>
+                        </div>
                     </div>
-                    <div className="profile-btn">
-                        <button data-testid="edit-btn" onClick={e => editProfile(e, profile.profileid)} className="btn-edit">edit <i className="fas fa-pencil-alt"></i></button>
-                        <button onClick={e => deleteProfile(e, profile.profileid)} className="btn-delete">delete <i className="far fa-trash-alt"></i></button>
-                    </div>
-                </div>
-            ))
-        }
+                ))
+            }
         </>
     );
 }

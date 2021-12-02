@@ -40,7 +40,7 @@ const DashboardMain = () => {
     useEffect(() => {
         countUsers();
         countProfiles();
-    })
+    }, 1)
 
     return (
         <div className="main__container-dashboard">
