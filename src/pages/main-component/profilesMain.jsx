@@ -9,8 +9,6 @@ import CreateProfile from "./profile-components/createProfile.jsx";
 /* profile context comp */
 import ProfileContext from "./profile-components/contextProfile";
 
-
-
 const ProfileMain = () => {
     const [showEdit, setShowEdit] = useState(false);
     const [showCreate, setShowCreate] = useState(false);

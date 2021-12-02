@@ -22,7 +22,6 @@ const OutputProfiles = (props) => {
             console.log(error.message);
         }
     }
-
     
     const deleteProfile = async (e, id) => {
         try {

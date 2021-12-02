@@ -16,14 +16,13 @@ const EditProfile = (props) => {
     const sendUpdateProfile = async (e) => {
         e.preventDefault();
         try {
-            if (uName.length <= 0 || uSurname.length <= 0 || gender.length <= 0 || uBd.length <= 0 || uCity.length <= 0) {
+            if (uName.length <= 0 || uSurname.length <= 0 || uBd.length <= 0 || uCity.length <= 0) {
                 setBorderColor('1px solid #EB0055');
                 setErrorMsg('Please, enter new info for profile or close edit form!');
             } else {
                 if (gender === '') {
-                    return alert('Please, select profile gender!');
+                    setErrorMsg('Please, select profile gender!');
                 }
-
 
                 const data = { "ProfileId": profileId, "ProfileName": uName, "ProfileSurname": uSurname, "ProfileGender": gender, "ProfileBd": uBd, "ProfileCity": uCity };
                 const response = await fetch('http://localhost:5000/up-profile/:id', {
@@ -69,7 +68,7 @@ const EditProfile = (props) => {
                     <label htmlFor="profilec">city:</label>
                     <input data-testid="input-city" type="text" name="profilec" id="profilec" value={uCity} onChange={e => setUCity(e.target.value)} style={{ borderBottom: border }}></input>
                     <div className="edit-btns">
-                        <button type='submit' className="accept-change"><i className="fas fa-check"></i></button>
+                        <button data-testid="edit-btn" type='submit' className="accept-change"><i className="fas fa-check"></i></button>
                         <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>
                     </div>
                 </form>
