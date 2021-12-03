@@ -33,9 +33,9 @@ const OutputAllUsers = (props) => {
         }
     }
 
-
     useEffect(() => {
         outputUsers();
+        console.log(profiles)
     }, []);
 
     return(

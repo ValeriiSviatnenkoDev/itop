@@ -1,17 +1,15 @@
 import React, { useState, useContext } from "react";
+
 import UserContext from "./contextUser";
 
 const EditUser = () => {
     const [error, setErrorMsg] = useState('');
-    const userId = useContext(UserContext);
 
     const [newUserNick, setNewNick] = useState();
     const [newUserEmail, setNewEmail] = useState();
     const [role, setRole] = useState('');
 
-    const [userNick, setUserNick] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userRole, setUserRole] = useState('');
+    const userData = useContext(UserContext);
 
     const sendUpdateUser = async(e) => {
         e.preventDefault();
@@ -20,7 +18,7 @@ const EditUser = () => {
                 setErrorMsg('Please, select user role!');
             } 
             
-            const data = { "UserId": userId, "UserName": newUserNick, "UserRole": role, "UserEmail": newUserEmail };
+            const data = { "UserId": userData.userid, "UserName": newUserNick, "UserRole": role, "UserEmail": newUserEmail };
             const response = await fetch('http://localhost:5000/up-user/:id', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },    
@@ -44,17 +42,17 @@ const EditUser = () => {
             <div className="container-edit-user">
                 <form onSubmit={sendUpdateUser}>
                     <label for="name">nick name:</label>
-                    <input type="text" id="nickname" value={newUserNick} placeholder={userNick} onChange={e => setNewNick(e.target.value)}></input>
+                    <input type="text" id="nickname" value={newUserNick} placeholder={userData.usernick} onChange={e => setNewNick(e.target.value)}></input>
                     <label for="surname">email:</label>
-                    <input type="email" id="email" value={newUserEmail} placeholder={userEmail} onChange={e => setNewEmail(e.target.value)}></input>
+                    <input type="email" id="email" value={newUserEmail} placeholder={userData.useremail} onChange={e => setNewEmail(e.target.value)}></input>
                     <label>role:</label>
                     <div className="radio-roles">
                         <div className="role">
-                            <input type="radio" name="role" id="user" value="user" defaultChecked={userRole === 'User' ? true : false} onChange={e => e.target.checked && setRole('User')}></input>
+                            <input type="radio" name="role" id="user" value="user" defaultChecked={userData.userrole === 'User' ? true : false} onChange={e => e.target.checked && setRole('User')}></input>
                             <label for="user">user</label>
                         </div>
                         <div className="role">
-                            <input type="radio" name="role" id="admin" value="admin" defaultChecked={userRole === 'Admin' ? true : false} onChange={e => e.target.checked && setRole('Admin')}></input>
+                            <input type="radio" name="role" id="admin" value="admin" defaultChecked={userData.userrole === 'Admin' ? true : false} onChange={e => e.target.checked && setRole('Admin')}></input>
                             <label for="admin">admin</label>
                         </div>
                     </div>

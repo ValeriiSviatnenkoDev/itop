@@ -24,11 +24,19 @@ const UsersMain = () => {
     const [userId, setUId] = useState('');
     const [profiles, setProfiles] = useState([]);
 
+    const userData = {
+        userid: userId,
+        usernick: userNick,
+        useremail: userEmail,
+        userrole: userRole
+    }
+
+
     return (
         <div>
             {
                 showEditUser ?
-                    <UserContext.Provider value={userId}>
+                    <UserContext.Provider value={userData}>
                         <EditUser />
                     </UserContext.Provider>
                     :
@@ -37,8 +45,8 @@ const UsersMain = () => {
             {
                 showUser ?
                     <div>
-                        <UserContext.Provider value={userId, userNick, userEmail, userRole}>
-                            <OutputUser setUId={setUId} setEditUser={setEditUser} />
+                        <UserContext.Provider value={userData}>
+                            <OutputUser setEditUser={setEditUser} setProfiles={setProfiles}/>
                         </UserContext.Provider>
                     </div>
                     /* TRUE */
@@ -53,7 +61,7 @@ const UsersMain = () => {
                             <LoadingScreen />
                         }
                         <UserContext.Provider value={profiles}>
-                            <OutputAllUsers setUserEmail={setUserEmail} setUserRole={setUserRole} setUserNick={setUserNick} setProfiles={setProfiles} setShowUser={setShowUser} setLoading={setLoading}/>
+                            <OutputAllUsers setUId={setUId} setUserEmail={setUserEmail} setUserRole={setUserRole} setUserNick={setUserNick} setShowUser={setShowUser} setLoading={setLoading}/>
                         </UserContext.Provider>
                     </div>
             }

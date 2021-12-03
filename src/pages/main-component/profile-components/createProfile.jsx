@@ -9,8 +9,11 @@ const CreateProfile = () => {
     const [uBd, setUBd] = useState('');
     const [uCity, setUCity] = useState('');
     const [uId, setUId] = useState('');
-    let gender, navigate = useNavigate();
 
+    const [error, setErrorMsg] = useState('');
+
+    let gender, navigate = useNavigate();
+    
     const createProfile = async(e) => {
         e.preventDefault();
         try {
@@ -19,7 +22,7 @@ const CreateProfile = () => {
             } else if(uFGender) {
                 gender = 'Female';
             } else {
-                return alert('Please, select profile gender!');;
+                setErrorMsg('Please, select profile gender!');
             }
 
             const uid = JSON.parse(localStorage.getItem('user')); 
@@ -73,7 +76,9 @@ const CreateProfile = () => {
                     </div>
                 </form>
             </div>
-        
+            <div className="container-error">
+                <p>{error}</p>
+            </div>
         </div>
     );
 }
