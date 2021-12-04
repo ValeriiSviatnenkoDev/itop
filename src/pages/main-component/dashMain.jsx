@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 const DashboardMain = () => {
-    const[users, SetUsers] = useState('');
-    const[profiles, SetProfiles] = useState('');
-    const[profilesYo, SetProfilesYo] = useState('');
-
-    const[countProfilesYo, setCountProfiles] = useState('')
+    const [users, setUsers] = useState('');
+    const [profiles, setProfiles] = useState([]);
 
     const countUsers = async(e) => {
         try {
             const response = await fetch('http://localhost:5000/get-users');
             const jsonData = await response.json();
-            SetUsers(jsonData.users.length)
+            setUsers(jsonData.users.length)
         } catch (error) {
             console.log(error.message);
         }
@@ -21,25 +18,16 @@ const DashboardMain = () => {
         try {
             const response = await fetch('http://localhost:5000/get-profiles');
             const jsonData = await response.json();
-            SetProfiles(jsonData.profiles.length);
-            SetProfilesYo(jsonData);
-
-            let j = 0;
-            for(let i= 0; i < profiles; i++) {
-                if(parseInt(profilesYo[i].profilebd.split('.')[2]) <= 2003) {
-                    j++;
-                }
-            }
-
-            setCountProfiles(j)            
+            setProfiles(jsonData.profiles);
+ 
         } catch (error) {
             console.log(error.message);
         }
     }
 
     useEffect(() => {
-        countUsers();
         countProfiles();
+        countUsers();
     }, [])
 
     return (
@@ -57,12 +45,16 @@ const DashboardMain = () => {
 
                 <div className="cards dashboard__cards-profiles">
                     <p>Profiles</p>
-                    <p className="format count__profiles">{profiles}</p>
+                    <p className="format count__profiles">{profiles.length}</p>
                 </div>
 
                 <div className="cards dashboard__cards-yo">
                     <p>Profiles over 18 years old:</p>
-                    <p className="format count__yo">{countProfilesYo}</p>
+                    <p className="format count__yo">
+                        {
+                            profiles.filter(x => x.profilebd.split('.')[2] <= 2003).length
+                        }
+                    </p>
                 </div>
             </div>
         </div>

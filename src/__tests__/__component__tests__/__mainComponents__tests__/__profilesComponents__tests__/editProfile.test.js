@@ -58,14 +58,7 @@ describe('Profile edit-profile component', () => {
     })
 
     it("Profile edit-profile gender undefined [unsuccess]", async () => {
-        jest.spyOn(global, "fetch").mockImplementation(() =>
-          Promise.resolve({
-            json: () => Promise.resolve(fakeAnswer)
-          })
-        );
-    
         const { getByText, getByTestId } = render(<EditProfile />);
-
             
         const pid = 1;
         const name = getByTestId("input-name");

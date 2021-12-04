@@ -7,13 +7,12 @@ import EditProfile from "./profile-components/editProfile.jsx";
 import CreateProfile from "./profile-components/createProfile.jsx";
 
 /* profile context comp */
-import ProfileContext from "./profile-components/contextProfile";
+import { ProfileProvider } from "./profile-components/contextProfile.js";
 
 const ProfileMain = () => {
     const [showEdit, setShowEdit] = useState(false);
     const [showCreate, setShowCreate] = useState(false);
     const [isLoading, setLoading] = useState(true);
-    const [profileId, setProfileId] = useState('');
 
     const createProfile = () => {
         setShowCreate(true);
@@ -29,7 +28,9 @@ const ProfileMain = () => {
                 <LoadingScreen />
             }
             <div className="main__container-profiles">
-                <OutputProfiles setProfileId={setProfileId} setShowEdit={setShowEdit} setLoading={setLoading}/>
+                <ProfileProvider>
+                    <OutputProfiles setShowEdit={setShowEdit} setLoading={setLoading}/>
+                </ProfileProvider>
                 {
                     isLoading ?
                         null
@@ -41,12 +42,11 @@ const ProfileMain = () => {
                 }
                 {
                     showEdit ?
-                        <ProfileContext.Provider value={profileId}>
+                        <ProfileProvider>
                             <EditProfile />
-                        </ProfileContext.Provider>
+                        </ProfileProvider>
                     :
-                        null
-                }
+                        null                }
                 {
                     showCreate ?
                         <CreateProfile />

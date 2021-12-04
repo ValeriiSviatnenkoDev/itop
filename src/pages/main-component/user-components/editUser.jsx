@@ -1,12 +1,16 @@
 import React, { useState, useContext } from "react";
 
+/* user context component */
 import UserContext from "./contextUser";
 
-const EditUser = () => {
-    const [error, setErrorMsg] = useState('');
+/* custom hooks */
+import useInput from "../../../customHooks/inputHook";
 
-    const [newUserNick, setNewNick] = useState();
-    const [newUserEmail, setNewEmail] = useState();
+const EditUser = () => {
+    const _usernick = useInput('', true);
+    const _useremail = useInput('', true);
+
+    const [error, setErrorMsg] = useState('');
     const [role, setRole] = useState('');
 
     const userData = useContext(UserContext);
@@ -14,11 +18,19 @@ const EditUser = () => {
     const sendUpdateUser = async(e) => {
         e.preventDefault();
         try {
-            if(role === ' ') {
-                setErrorMsg('Please, select user role!');
-            } 
-            
-            const data = { "UserId": userData.userid, "UserName": newUserNick, "UserRole": role, "UserEmail": newUserEmail };
+            if(role === '') {
+                return setErrorMsg('Please, select user role!');
+            }
+
+            if(_usernick.value.length <= 0) {
+                _usernick.value = userData.usernick;
+            }
+
+            if(_useremail.value.length <= 0) {
+                _useremail.value = userData.useremail;
+            }
+
+            const data = { "UserId": userData.userid, "UserName": _usernick.value, "UserRole": role, "UserEmail": _useremail.value };
             const response = await fetch('http://localhost:5000/up-user/:id', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },    
@@ -42,9 +54,9 @@ const EditUser = () => {
             <div className="container-edit-user">
                 <form onSubmit={sendUpdateUser}>
                     <label for="name">nick name:</label>
-                    <input type="text" id="nickname" value={newUserNick} placeholder={userData.usernick} onChange={e => setNewNick(e.target.value)}></input>
+                    <input type="text" id="nickname" {..._usernick} placeholder={userData.usernick} ></input>
                     <label for="surname">email:</label>
-                    <input type="email" id="email" value={newUserEmail} placeholder={userData.useremail} onChange={e => setNewEmail(e.target.value)}></input>
+                    <input type="email" id="email" {..._useremail} placeholder={userData.useremail} ></input>
                     <label>role:</label>
                     <div className="radio-roles">
                         <div className="role">

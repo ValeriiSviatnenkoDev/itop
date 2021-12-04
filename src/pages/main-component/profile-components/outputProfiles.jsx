@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
+/* utils for client */
+import { getLocaleStorage } from "../../../client-utils/util-locale-storage";
+
+/* profiles context comp */
+import { ProfileContext } from "./contextProfile.js";
 
 const OutputProfiles = (props) => {
     const [profiles, setProfiles] = useState([]);
-    const [userId, setUId] = useState('');
+    const [userId, setUId] = useState('')
+
+    const { profileId, setProfileId} = useContext(ProfileContext);
 
     const outputProfiles = async (e) => {
         try {
@@ -11,7 +19,7 @@ const OutputProfiles = (props) => {
             const jsonData = await response.json();
             setProfiles(jsonData.profiles);
 
-            const uId = JSON.parse(localStorage.getItem('user'));
+            const uId = getLocaleStorage('user', true);
             setUId(uId.userid);
 
             console.log(profiles)
@@ -41,7 +49,9 @@ const OutputProfiles = (props) => {
 
     const editProfile = (e, id) => {
         props.setShowEdit(true);
-        props.setProfileId(id);
+        console.log(id)
+
+        setProfileId(id);
     }
 
     useEffect(() => {

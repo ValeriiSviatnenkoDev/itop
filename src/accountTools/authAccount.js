@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AuthAccount = () => {
-    const [uEmail, setUEmail] = useState('');
-    const [uPass, setUPass] = useState('');
+/* utils for client */
+import { setLocaleStorage, getLocaleStorage } from "../client-utils/util-locale-storage.js";
+import { rolesNavigate } from "../client-utils/util-auth-navigate.js";
 
-    const [error, setErrorMsg] = useState('');
-    const [border, setBorderColor] = useState('1px solid #14142B');
+/* custom hooks */
+import useInput from "../customHooks/inputHook.js";
+
+const AuthAccount = () => {
+    const _useremail = useInput('', true);
+    const _userpassword = useInput('', true);
+
     const [authStatus, setStatus] = useState('');
 
     let navigate = useNavigate();
@@ -14,36 +19,26 @@ const AuthAccount = () => {
     const authAccount = async (e) => {
         e.preventDefault();
         try {
-            if (uEmail.length <= 0 || uPass.length <= 0) {
-                setErrorMsg('Enter email and password for authorization.');
-                setBorderColor('1px solid #EB0055');
-                return;
-            }
-            
-            const data = { "UserEmail": uEmail, "UserPassword": uPass };
+            const data = { "UserEmail": _useremail.value, "UserPassword": _userpassword.value };
             const response = await fetch('http://localhost:5000/user-login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data) 
             });
 
             const jsonData = await response.json();
             setStatus(jsonData.message);
 
-            if (jsonData.token !== localStorage.getItem('token')) {
-                localStorage.setItem('token', jsonData.acsessToken);
-                localStorage.setItem('user', JSON.stringify(jsonData.user));
-                localStorage.setItem('status', jsonData.auth);
+            if (jsonData.token !== getLocaleStorage('token', false)) {
+                setLocaleStorage('token', jsonData.acsessToken);
+                setLocaleStorage('user', jsonData.user, true);
+                setLocaleStorage('status', jsonData.auth);
 
-                if(jsonData.auth === true && jsonData.user.userrole === 'User') {
-                    navigate("/get-profiles", { replace: true });
-                    window.location.reload();
-                } else if (jsonData.auth === true && jsonData.user.userrole === 'Admin') {
-                    navigate("/get-users", { replace: true });
-                    window.location.reload();
-                }
+                const result = rolesNavigate(jsonData.auth, jsonData.user.userrole);
+                navigate(result, {replace: true});
+                window.location.reload();
             } else {
-                alert('User has been logging.')
+                setStatus('User has been authorization!');
             }
 
         } catch (error) {
@@ -63,11 +58,11 @@ const AuthAccount = () => {
             <div className="signIn-form">
                 <form onSubmit={authAccount}>
                     <label htmlFor="uEmail">Email</label>
-                    <input data-testid="email" type="email" id="uEmail" value={uEmail} onChange={e => setUEmail(e.target.value)} style={{ borderBottom: border }}></input>
-                    <p>{error}</p>
+                    <input data-testid="email" type="email" id="uEmail" {..._useremail} style={_useremail.value.length <= 0 ? {borderBottom: _useremail.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <p>{_useremail.errMsg}</p>
                     <label htmlFor="uPassword">Password</label>
-                    <input data-testid="password" type="password" id="uPassword" value={uPass} onChange={e => setUPass(e.target.value)} style={{ borderBottom: border }}></input>
-                    <p>{error}</p>
+                    <input data-testid="password" type="password" id="uPassword" {..._userpassword}  style={_userpassword.value.length <= 0 ? {borderBottom: _userpassword.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <p>{_userpassword.errMsg}</p>
                     <div className="signIn-Btn">
                         <button type='submit'>Sign In</button>
                     </div>

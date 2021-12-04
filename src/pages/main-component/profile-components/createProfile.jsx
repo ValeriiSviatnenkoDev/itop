@@ -1,34 +1,40 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateProfile = () => {
-    const [uName, setUName] = useState('');
-    const [uSurname, setUSurname] = useState('');
-    const [uMGender, setUMGender] = useState('');
-    const [uFGender, setUFGender] = useState('');
-    const [uBd, setUBd] = useState('');
-    const [uCity, setUCity] = useState('');
-    const [uId, setUId] = useState('');
+/* utils for client */
+import { getLocaleStorage } from "../../../client-utils/util-locale-storage.js"
 
+/* custom hooks */
+import useInput from '../../../customHooks/inputHook.js'
+
+const CreateProfile = () => {
+    const _name = useInput('', true);
+    const _surname = useInput('', true);
+    const _bd = useInput('', true);
+    const _city = useInput('', true);
+
+    const [gender, setGender] = useState('');
+
+    const [uId, setUId] = useState('');
     const [error, setErrorMsg] = useState('');
 
-    let gender, navigate = useNavigate();
+    let navigate = useNavigate();
     
     const createProfile = async(e) => {
         e.preventDefault();
         try {
-            if(uMGender) {
-                gender = 'Male';
-            } else if(uFGender) {
-                gender = 'Female';
-            } else {
-                setErrorMsg('Please, select profile gender!');
+            if(_name.value.length <= 0 || _surname.value.length <= 0 || _bd.value.length <= 0 || _city.value.length <= 0) {
+                return setErrorMsg("Please enter all data for create profile!");
             }
 
-            const uid = JSON.parse(localStorage.getItem('user')); 
+            if (gender === '') {
+                return setErrorMsg('Please, select profile gender!');
+            }
+
+            const uid = getLocaleStorage('user', true); 
             setUId(uid.userid);
 
-            const data = { "ProfileUserId": uId, "ProfileName": uName, "ProfileSurname": uSurname, "ProfileGender": gender, "ProfileBd": uBd, "ProfileCity": uCity };
+            const data = { "ProfileUserId": uId, "ProfileName": _name.value, "ProfileSurname": _surname.value, "ProfileGender": gender, "ProfileBd": _bd.value, "ProfileCity": _city.value };
             const response = await fetch('http://localhost:5000/profile-create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -52,24 +58,24 @@ const CreateProfile = () => {
             <div className="container-edit">
                 <form onSubmit={createProfile}>
                     <label htmlFor="name">name:</label>
-                    <input data-testid="input-name" type="text" id="name" value={uName} onChange={e => setUName(e.target.value)}></input>                        
+                    <input data-testid="input-name" type="text" id="name" {..._name} style={_name.value.length <= 0 ? {borderBottom: _name.errStyle} : {borderBottom: '1px solid #14142B'}}></input>                        
                     <label htmlFor="surname">surname:</label>
-                    <input data-testid="input-surname" type="text" id="surname" value={uSurname} onChange={e => setUSurname(e.target.value)}></input>
+                    <input data-testid="input-surname" type="text" id="surname" {..._surname} style={_surname.value.length <= 0 ? {borderBottom: _surname.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
                     <label>gender:</label>
                     <div className="radio-gender">
                         <div className="male">
-                            <input type="radio" name="gender" id="male" value="male" onChange={e => setUMGender(e.target.checked)}></input>
+                            <input type="radio" name="gender" id="male" value="male" onChange={e => e.target.checked && setGender('Male')}></input>
                             <label htmlFor="male">male</label>
                         </div>
                         <div className="male">
-                            <input type="radio" name="gender" id="female" value="female" onChange={e => setUFGender(e.target.checked)}></input>
+                            <input type="radio" name="gender" id="female" value="female" onChange={e => e.target.checked && setGender('Female')}></input>
                             <label htmlFor="female">female</label>
                         </div>
                     </div>
                     <label htmlFor="profiledb">birthdate:</label>
-                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" value={uBd} onChange={e => setUBd(e.target.value)}></input>
+                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" {..._bd} style={_bd.value.length <= 0 ? {borderBottom: _bd.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
                     <label htmlFor="profilec">city:</label>
-                    <input data-testid="input-city" type="text" name="profilec" id="profilec" value={uCity} onChange={e => setUCity(e.target.value)}></input>
+                    <input data-testid="input-city" type="text" name="profilec" id="profilec" {..._city} style={_city.value.length <= 0 ? {borderBottom: _city.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
                     <div className="edit-btns">
                         <button data-testid="accept" type='submit' className="accept-change"><i className="fas fa-check"></i></button>
                         <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>

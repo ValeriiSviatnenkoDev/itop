@@ -1,5 +1,16 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 
-const ProfileContext = React.createContext();
+export const ProfileContext = createContext();
 
-export default ProfileContext;
+export const ProfileProvider = (props) => {
+    const [profileId, setProfileId] = useState('');
+
+    console.log(profileId)
+
+
+    return(
+        <ProfileContext.Provider value={{profileId, setProfileId}}>
+            {props.children}
+        </ProfileContext.Provider>
+    )
+}

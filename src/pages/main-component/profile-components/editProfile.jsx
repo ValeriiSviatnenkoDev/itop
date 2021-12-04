@@ -1,45 +1,51 @@
 import React, { useContext, useState } from "react";
-import ProfileContext from "./contextProfile.js";
+
+/* profile context */
+import { ProfileContext } from "./contextProfile.js";
+
+/* custom hooks */
+import useInput from '../../../customHooks/inputHook.js'
 
 const EditProfile = (props) => {
-    const [border, setBorderColor] = useState('1px solid #14142B');
     const [error, setErrorMsg] = useState('');
-
-    const profileId = useContext(ProfileContext);
-
-    const [uName, setUName] = useState('');
-    const [uSurname, setUSurname] = useState('');
     const [gender, setGender] = useState('');
-    const [uBd, setUBd] = useState('');
-    const [uCity, setUCity] = useState('');
+
+    const { profileId } = useContext(ProfileContext);
+
+    const _name = useInput('', true);
+    const _surname = useInput('', true);
+    const _bd = useInput('', true);
+    const _city = useInput('', true);
 
     const sendUpdateProfile = async (e) => {
         e.preventDefault();
         try {
-            if (uName.length <= 0 || uSurname.length <= 0 || uBd.length <= 0 || uCity.length <= 0) {
-                setBorderColor('1px solid #EB0055');
-                setErrorMsg('Please, enter new info for profile or close edit form!');
-            } else {
-                if (gender === '') {
-                    setErrorMsg('Please, select profile gender!');
-                }
-
-                const data = { "ProfileId": profileId, "ProfileName": uName, "ProfileSurname": uSurname, "ProfileGender": gender, "ProfileBd": uBd, "ProfileCity": uCity };
-                const response = await fetch('http://localhost:5000/up-profile/:id', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                const jsonData = await response.json();
-
-                window.location.reload();
+            if (_name.value.length <= 0 || _surname.value.length <= 0 || _bd.value.length <= 0 || _city.value.length <= 0) {
+                return setErrorMsg('Please, enter new info for profile or close edit form!');
             }
+            
+            if (gender === '') {
+                return setErrorMsg('Please, select profile gender!');
+            }
+
+            console.log(profileId)
+
+            const data = { "ProfileId": profileId, "ProfileName": _name.value, "ProfileSurname": _surname.value, "ProfileGender": gender, "ProfileBd": _bd.value, "ProfileCity": _city.value };
+            const response = await fetch('http://localhost:5000/up-profile/:id', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const jsonData = await response.json();
+            window.location.reload();
+
         } catch (error) {
             console.error(error)
         }
     }
 
-    
+
     const closeCreate = () => {
         window.location.reload();
     }
@@ -49,9 +55,9 @@ const EditProfile = (props) => {
             <div className="container-edit">
                 <form onSubmit={sendUpdateProfile}>
                     <label htmlFor="name">name:</label>
-                    <input data-testid="input-name" type="text" id="name" value={uName} onChange={e => setUName(e.target.value)} style={{ borderBottom: border }}></input>
+                    <input data-testid="input-name" type="text" id="name" {..._name} style={_name.value.length <= 0 ? { borderBottom: _name.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <label htmlFor="surname">surname:</label>
-                    <input data-testid="input-surname" type="text" id="surname" value={uSurname} onChange={e => setUSurname(e.target.value)} style={{ borderBottom: border }}></input>
+                    <input data-testid="input-surname" type="text" id="surname" {..._surname} style={_surname.value.length <= 0 ? { borderBottom: _surname.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <label>gender:</label>
                     <div className="radio-gender">
                         <div className="male">
@@ -64,9 +70,9 @@ const EditProfile = (props) => {
                         </div>
                     </div>
                     <label htmlFor="profiledb">birthdate:</label>
-                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" value={uBd} onChange={e => setUBd(e.target.value)} style={{ borderBottom: border }}></input>
+                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" {..._bd} style={_bd.value.length <= 0 ? { borderBottom: _bd.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <label htmlFor="profilec">city:</label>
-                    <input data-testid="input-city" type="text" name="profilec" id="profilec" value={uCity} onChange={e => setUCity(e.target.value)} style={{ borderBottom: border }}></input>
+                    <input data-testid="input-city" type="text" name="profilec" id="profilec" {..._city} style={_city.value.length <= 0 ? { borderBottom: _city.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <div className="edit-btns">
                         <button data-testid="edit-btn" type='submit' className="accept-change"><i className="fas fa-check"></i></button>
                         <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>
