@@ -7,12 +7,14 @@ import ProfileMain from "../main-component/profilesMain";
 import DashboardMain from "../main-component/dashMain";
 import UsersMain from "../main-component/usersMain";
 
+import { getLocaleStorage } from "../../client-utils/util-locale-storage";
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            statusAuth: localStorage.getItem('status')
+            statusAuth: getLocaleStorage('status', false)
         }
     }
 

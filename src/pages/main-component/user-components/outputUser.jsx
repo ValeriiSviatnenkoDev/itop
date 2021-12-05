@@ -1,5 +1,4 @@
 import React, { useState,useContext, useEffect } from "react";
-import OutputProfiles from "../profile-components/outputProfiles.jsx";
 
 import UserContext from "./contextUser";
 import OutputUserProfiles from "./outputUserProfiles.jsx";

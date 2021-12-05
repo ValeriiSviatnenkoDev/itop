@@ -3,6 +3,8 @@ import React from "react";
 import Header from "./home-component/Header";
 import Main from "./home-component/Main";
 
+import { getLocaleStorage } from "../client-utils/util-locale-storage";
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.setState({
-      statusAuth: localStorage.getItem('status')
+      statusAuth: getLocaleStorage('status', false)
     })
   }
 

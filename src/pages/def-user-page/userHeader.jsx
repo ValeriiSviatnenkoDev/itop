@@ -1,20 +1,23 @@
 import React from "react";
 
+/* utils */
+import { getLocaleStorage, clearLocaleStorage } from "../../client-utils/util-locale-storage"; 
+
 class UserHeader extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user: JSON.parse(localStorage.getItem('user'))
+            user: getLocaleStorage('user', true)
         }
 
         this.logOutAcc = this.logOutAcc.bind(this);
     }
 
     logOutAcc() {
-        localStorage.removeItem('status');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        clearLocaleStorage('status');
+        clearLocaleStorage('token');
+        clearLocaleStorage('user');
     }
 
     render() {

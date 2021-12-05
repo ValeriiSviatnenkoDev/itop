@@ -5,16 +5,12 @@ Utils for using localeStorage
 */
 
 /* localeStorage, method: setItem(key, value) */
-export const setLocaleStorage = (key, value, strf) => {
+export const setLocaleStorage = (key, value) => {
     if(!key || !value) {
         return console.error('Key or values is undefined.');
     }
 
-    if(strf) {
-        return JSON.stringify(localStorage.setItem(key, value));
-    } else {
-        localStorage.setItem(key, value);
-    }
+    return localStorage.setItem(key, value);
 } 
 
 /* localeStorage, method: getItem(key) */

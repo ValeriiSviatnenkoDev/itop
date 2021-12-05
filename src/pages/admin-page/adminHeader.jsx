@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 
+/* utils */
+import { getLocaleStorage, clearLocaleStorage } from "../../client-utils/util-locale-storage"; 
+
 const AdminHeader = () => {
     const [user, setUser] = useState('');
 
     const AdminHeader = async (e) => {
-        setUser(JSON.parse(localStorage.getItem("user")));
+        setUser(getLocaleStorage('user', true));
     }
 
     const logOutAcc = async (e) => {
-        localStorage.removeItem('status');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        clearLocaleStorage('status');
+        clearLocaleStorage('token');
+        clearLocaleStorage('user');
     }
 
     useEffect(() => {

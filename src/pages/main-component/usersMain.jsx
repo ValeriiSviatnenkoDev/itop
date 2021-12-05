@@ -24,13 +24,14 @@ const UsersMain = () => {
     const [userId, setUId] = useState('');
     const [profiles, setProfiles] = useState([]);
 
+    console.log(profiles)
+
     const userData = {
         userid: userId,
         usernick: userNick,
         useremail: userEmail,
         userrole: userRole
     }
-
 
     return (
         <div>

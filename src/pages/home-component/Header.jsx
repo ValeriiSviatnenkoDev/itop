@@ -4,12 +4,14 @@ import AdminHeader from "../admin-page/adminHeader";
 import UserHeader from "../def-user-page/userHeader";
 import Main from "./Main";
 
+import { getLocaleStorage } from "../../client-utils/util-locale-storage";
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: JSON.parse(localStorage.getItem('user')),
-      statusAuth: localStorage.getItem('status')
+      user: getLocaleStorage('user', true),
+      statusAuth: getLocaleStorage('status', false)
     }
   }
 

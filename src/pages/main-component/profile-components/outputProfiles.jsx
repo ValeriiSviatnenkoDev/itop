@@ -10,7 +10,7 @@ const OutputProfiles = (props) => {
     const [profiles, setProfiles] = useState([]);
     const [userId, setUId] = useState('')
 
-    const { profileId, setProfileId} = useContext(ProfileContext);
+    const { profileId, setProfileId } = useContext(ProfileContext);
 
     const outputProfiles = async (e) => {
         try {

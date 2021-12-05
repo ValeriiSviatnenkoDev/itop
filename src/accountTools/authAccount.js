@@ -23,7 +23,7 @@ const AuthAccount = () => {
             const response = await fetch('http://localhost:5000/user-login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data) 
+                body: JSON.stringify(data)
             });
 
             const jsonData = await response.json();
@@ -31,11 +31,11 @@ const AuthAccount = () => {
 
             if (jsonData.token !== getLocaleStorage('token', false)) {
                 setLocaleStorage('token', jsonData.acsessToken);
-                setLocaleStorage('user', jsonData.user, true);
+                setLocaleStorage('user', JSON.stringify(jsonData.user));
                 setLocaleStorage('status', jsonData.auth);
 
                 const result = rolesNavigate(jsonData.auth, jsonData.user.userrole);
-                navigate(result, {replace: true});
+                navigate(result, { replace: true });
                 window.location.reload();
             } else {
                 setStatus('User has been authorization!');
@@ -58,10 +58,10 @@ const AuthAccount = () => {
             <div className="signIn-form">
                 <form onSubmit={authAccount}>
                     <label htmlFor="uEmail">Email</label>
-                    <input data-testid="email" type="email" id="uEmail" {..._useremail} style={_useremail.value.length <= 0 ? {borderBottom: _useremail.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <input data-testid="email" type="email" id="uEmail" {..._useremail} style={_useremail.value.length <= 0 ? { borderBottom: _useremail.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <p>{_useremail.errMsg}</p>
                     <label htmlFor="uPassword">Password</label>
-                    <input data-testid="password" type="password" id="uPassword" {..._userpassword}  style={_userpassword.value.length <= 0 ? {borderBottom: _userpassword.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <input data-testid="password" type="password" id="uPassword" {..._userpassword} style={_userpassword.value.length <= 0 ? { borderBottom: _userpassword.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <p>{_userpassword.errMsg}</p>
                     <div className="signIn-Btn">
                         <button type='submit'>Sign In</button>
