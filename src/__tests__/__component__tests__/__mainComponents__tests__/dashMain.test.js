@@ -7,7 +7,6 @@ import "@testing-library/jest-dom/extend-expect";
 
 describe('Dashboard output-data-to-dashboard component', () => {
     
-    
     it("Dashboard output-users-to-dashboard", async () => {
         const users = { 
             user1: {

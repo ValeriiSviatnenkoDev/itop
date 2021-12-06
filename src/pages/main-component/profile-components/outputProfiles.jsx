@@ -10,7 +10,7 @@ const OutputProfiles = (props) => {
     const [profiles, setProfiles] = useState([]);
     const [userId, setUId] = useState('')
 
-    const { profileId, setProfileId } = useContext(ProfileContext);
+    const { setProfileId } = useContext(ProfileContext);
 
     const outputProfiles = async (e) => {
         try {
@@ -21,8 +21,6 @@ const OutputProfiles = (props) => {
 
             const uId = getLocaleStorage('user', true);
             setUId(uId.userid);
-
-            console.log(profiles)
 
             props.setLoading(false);
         } catch (error) {
@@ -40,6 +38,10 @@ const OutputProfiles = (props) => {
                 body: JSON.stringify(data)
             });
 
+            const jsonData = await response.json();
+
+            console.log(`Delete profile: ${jsonData.successMsg}`)
+
             window.location.reload();
 
         } catch (error) {
@@ -49,14 +51,12 @@ const OutputProfiles = (props) => {
 
     const editProfile = (e, id) => {
         props.setShowEdit(true);
-        console.log(id)
-
         setProfileId(id);
     }
 
     useEffect(() => {
         outputProfiles();
-    }, [])
+    }, []);
 
     return (
         <>

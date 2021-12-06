@@ -27,10 +27,10 @@ const ProfileMain = () => {
                 isLoading &&
                 <LoadingScreen />
             }
-            <div className="main__container-profiles">
+            <div data-testid="list-profiles" className="main__container-profiles">
                 <ProfileProvider>
                     <OutputProfiles setShowEdit={setShowEdit} setLoading={setLoading}/>
-                </ProfileProvider>
+
                 {
                     isLoading ?
                         null
@@ -42,17 +42,17 @@ const ProfileMain = () => {
                 }
                 {
                     showEdit ?
-                        <ProfileProvider>
                             <EditProfile />
-                        </ProfileProvider>
                     :
-                        null                }
+                        null                
+                }
                 {
                     showCreate ?
                         <CreateProfile />
                     :
                         null
                 }
+            </ProfileProvider>
             </div>
         </div>
     );

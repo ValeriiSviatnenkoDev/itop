@@ -42,6 +42,7 @@ const CreateProfile = () => {
             });
 
             const jsonData = await response.json();
+            console.log(`Profile create: ${jsonData.successMsg}`);
             navigate('/get-profiles', {replace: true});
             window.location.reload();
         } catch (error) {

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import UserContext from "./contextUser";
+import { UserContext } from "./contextUser";
 
 const OutputAllUsers = (props) => {
     const [users, setUsers] = useState([]);
-    const profiles = useContext(UserContext);
+    const { setUserNick, setUserEmail, setUserRole, setUId } = useContext(UserContext);
 
     const outputUsers = async (e) => {
         try {
@@ -23,10 +23,10 @@ const OutputAllUsers = (props) => {
         try {
             props.setShowUser(true);
 
-            props.setUserNick(user.username);
-            props.setUserEmail(user.useremail);
-            props.setUserRole(user.userrole);
-            props.setUId(user.userid);
+            setUserNick(user.username);
+            setUserEmail(user.useremail);
+            setUserRole(user.userrole);
+            setUId(user.userid);
 
         } catch (error) {
             console.error(error.message)
@@ -35,7 +35,6 @@ const OutputAllUsers = (props) => {
 
     useEffect(() => {
         outputUsers();
-        console.log(profiles)
     }, []);
 
     return(
@@ -46,7 +45,7 @@ const OutputAllUsers = (props) => {
                     <div className="user-info">
                         <p className="pTitle">{user.username}</p>
                         <p>{user.useremail}</p>
-                        <p>{profiles.filter(x => x.profileuserid == user.userid).length} Profiles</p>
+                        {/* <p>{contextProfiles.filter(x => x.profileuserid == user.userid).length} Profiles</p> */}
                     </div>
                 </div>
             ))

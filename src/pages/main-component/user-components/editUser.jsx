@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 
 /* user context component */
-import UserContext from "./contextUser";
+import { UserContext } from "./contextUser";
 
 /* custom hooks */
 import useInput from "../../../customHooks/inputHook";
@@ -37,7 +37,7 @@ const EditUser = () => {
                 body: JSON.stringify(data)
             });
             const jsonData = await response.json();
-            
+            console.log(`Update user: ${jsonData.successMsg }`);
             window.location.reload();
         } catch (error) {
             console.error(error)
@@ -54,9 +54,9 @@ const EditUser = () => {
             <div className="container-edit-user">
                 <form onSubmit={sendUpdateUser}>
                     <label for="name">nick name:</label>
-                    <input type="text" id="nickname" {..._usernick} placeholder={userData.usernick} ></input>
+                    <input data-testid="username" type="text" id="nickname" {..._usernick} placeholder={userData.usernick} ></input>
                     <label for="surname">email:</label>
-                    <input type="email" id="email" {..._useremail} placeholder={userData.useremail} ></input>
+                    <input type="email" id="useremail" {..._useremail} placeholder={userData.useremail} ></input>
                     <label>role:</label>
                     <div className="radio-roles">
                         <div className="role">
@@ -69,7 +69,7 @@ const EditUser = () => {
                         </div>
                     </div>
                     <div className="edit-btns">
-                        <button type='submit' className="accept-change"><i className="fas fa-check"></i></button>
+                        <button data-testid="accept" type='submit' className="accept-change"><i className="fas fa-check"></i></button>
                         <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>
                     </div>
                 </form>

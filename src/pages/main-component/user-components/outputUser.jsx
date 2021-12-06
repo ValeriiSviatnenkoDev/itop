@@ -1,12 +1,11 @@
-import React, { useState,useContext, useEffect } from "react";
+import React, { useState,useContext } from "react";
 
-import UserContext from "./contextUser";
+import { UserContext } from "./contextUser";
 import OutputUserProfiles from "./outputUserProfiles.jsx";
 
 const OutputUser = (props) => {
     const [isLoading, setLoading] = useState(false);
-
-    const userData = useContext(UserContext);
+    const { userNick, userEmail, userRole, userId } = useContext(UserContext);
 
     const editUser = (e, id) => {
         try {
@@ -18,7 +17,7 @@ const OutputUser = (props) => {
 
     const deleteUser = async(e) => {
         try {
-            const data = { "UserId": userData.userid };
+            const data = { "UserId": userId };
             const response = await fetch('http://localhost:5000/del-user/:id', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
@@ -34,11 +33,11 @@ const OutputUser = (props) => {
         <>
             <div className="main__container-info">
                 <div className="container-user">
-                    <p>{userData.usernick}</p>
-                    <p>{userData.useremail}</p>
-                    <p className="userrole">{userData.userrole}</p>
+                    <p>{userNick}</p>
+                    <p>{userEmail}</p>
+                    <p className="userrole">{userRole}</p>
                     <div className="control-btns">
-                        <i onClick={e => editUser(e, userData.userid)} className="fas fa-pencil-alt"></i>
+                        <i onClick={e => editUser(e, userId)} className="fas fa-pencil-alt"></i>
                         <i onClick={deleteUser} className="far fa-trash-alt"></i>
                     </div>
                 </div>
@@ -47,7 +46,7 @@ const OutputUser = (props) => {
                 Profiles:
             </div>
             <div className="main__container-profiles">
-                <OutputUserProfiles userId={userData.userid} setLoading={setLoading}/>
+                <OutputUserProfiles userId={userId} setLoading={setLoading}/>
             </div>
         </>
     )

@@ -20,15 +20,16 @@ const EditProfile = (props) => {
     const sendUpdateProfile = async (e) => {
         e.preventDefault();
         try {
+            
             if (_name.value.length <= 0 || _surname.value.length <= 0 || _bd.value.length <= 0 || _city.value.length <= 0) {
                 return setErrorMsg('Please, enter new info for profile or close edit form!');
             }
-            
+
             if (gender === '') {
                 return setErrorMsg('Please, select profile gender!');
             }
-
-            console.log(profileId)
+            
+            console.log("profileId", profileId);
 
             const data = { "ProfileId": profileId, "ProfileName": _name.value, "ProfileSurname": _surname.value, "ProfileGender": gender, "ProfileBd": _bd.value, "ProfileCity": _city.value };
             const response = await fetch('http://localhost:5000/up-profile/:id', {
@@ -38,6 +39,7 @@ const EditProfile = (props) => {
             });
 
             const jsonData = await response.json();
+            console.log(`Profile update: ${jsonData.successMsg}`);
             window.location.reload();
 
         } catch (error) {

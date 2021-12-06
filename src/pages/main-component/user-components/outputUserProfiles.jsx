@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import EditProfile from "../profile-components/editProfile";
+import { UserContext } from "./contextUser";
 
 const OutputUserProfiles = (props) => {
     const [showEditProfile, setShowEdit] = useState(false);
@@ -12,7 +13,9 @@ const OutputUserProfiles = (props) => {
             props.setLoading(true);
             const response = await fetch('http://localhost:5000/get-profiles');
             const jsonData = await response.json();
+            
             setProfiles(jsonData.profiles);
+
             props.setLoading(false);
         } catch (error) {
             props.setLoading(false);

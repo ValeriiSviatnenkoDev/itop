@@ -1,6 +1,6 @@
 import React from "react";
 import AuthAccount from "../../accountTools/authAccount.js"
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
 import "@testing-library/jest-dom/extend-expect";
 
@@ -15,7 +15,7 @@ jest.mock("react-router-dom", () => ({
 
 describe('Auth login-user component', () => {
   const original = window.location;
-  
+
   const reloadFn = () => {
     window.location.reload(true);
   };
@@ -32,12 +32,34 @@ describe('Auth login-user component', () => {
   });
 
   it("Auth login-user empty email [unsuccess]", async () => {
-    const { getAllByText } = render(<AuthAccount />);
+    const { getByTestId, getByText } = render(<AuthAccount />);
 
-    userEvent.click(screen.getByText("Sign In"));
+    const useremail = getByTestId("email");
+    const userpass = getByTestId("password");
+
+    userEvent.type(useremail, "");
+    userEvent.type(userpass, "sho54321");
+
+    userEvent.click(getByText("Sign In"));
     await waitFor(() => {
-      const errors = getAllByText('Enter email and password for authorization.');
-      expect(errors).toHaveLength(2);
+      const error = getByText('Please enter your data for authorization!');
+      expect(error).toBeInTheDocument();
+    })
+  });
+
+  it("Auth login-user empty password [unsuccess]", async () => {
+    const { getByTestId, getByText } = render(<AuthAccount />);
+
+    const useremail = getByTestId("email");
+    const userpass = getByTestId("password");
+
+    userEvent.type(useremail, "sho@gmail.com");
+    userEvent.type(userpass, "");
+
+    userEvent.click(getByText("Sign In"));
+    await waitFor(() => {
+      const error = getByText('Please enter your data for authorization!');
+      expect(error).toBeInTheDocument();
     })
   });
 
@@ -56,7 +78,7 @@ describe('Auth login-user component', () => {
     const userpass = getByTestId("password");
 
     userEvent.type(useremail, "sho@gmail.com");
-    userEvent.type(userpass, "sho54322");
+    userEvent.type(userpass, "sh1so54322");
 
     userEvent.click(getByText("Sign In"));
     await waitFor(() => {
@@ -86,12 +108,11 @@ describe('Auth login-user component', () => {
     const useremail = getByTestId("email");
     const userpass = getByTestId("password");
 
-    userEvent.type(useremail, "sho@gmail.com");
-    userEvent.type(userpass, "sho54321");
+    userEvent.type(useremail, "shz@gmail.com");
+    userEvent.type(userpass, "sh54321");
 
     userEvent.click(getByText("Sign In"));
     await waitFor(() => {
-      // expect(fakeAnswer.auth === true && fakeAnswer.user.userrole === 'User').toBe(true);
       reloadFn(); // as defined above..
       expect(window.location.reload).toHaveBeenCalled();
     })
@@ -116,12 +137,11 @@ describe('Auth login-user component', () => {
     const useremail = getByTestId("email");
     const userpass = getByTestId("password");
 
-    userEvent.type(useremail, "sho@gmail.com");
-    userEvent.type(userpass, "sho54321");
+    userEvent.type(useremail, "shz@gmail.com");
+    userEvent.type(userpass, "sh54321");
 
     userEvent.click(getByText("Sign In"));
     await waitFor(() => {
-      // expect(fakeAnswer.auth === true && fakeAnswer.user.userrole === 'User').toBe(true);
       reloadFn(); // as defined above..
       expect(window.location.reload).toHaveBeenCalled();
     })
