@@ -59,9 +59,9 @@ const CreateProfile = () => {
             <div className="container-edit">
                 <form onSubmit={createProfile}>
                     <label htmlFor="name">name:</label>
-                    <input data-testid="input-name" type="text" id="name" {..._name} style={_name.value.length <= 0 ? {borderBottom: _name.errStyle} : {borderBottom: '1px solid #14142B'}}></input>                        
+                    <input data-testid="input-name" type="text" id="name" {..._name} style={_name.value.length <= 0 ? {borderBottom: _name._errorstyle} : {borderBottom: '1px solid #14142B'}}></input>                        
                     <label htmlFor="surname">surname:</label>
-                    <input data-testid="input-surname" type="text" id="surname" {..._surname} style={_surname.value.length <= 0 ? {borderBottom: _surname.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <input data-testid="input-surname" type="text" id="surname" {..._surname} style={_surname.value.length <= 0 ? {borderBottom: _surname._errorstyle} : {borderBottom: '1px solid #14142B'}}></input>
                     <label>gender:</label>
                     <div className="radio-gender">
                         <div className="male">
@@ -74,9 +74,9 @@ const CreateProfile = () => {
                         </div>
                     </div>
                     <label htmlFor="profiledb">birthdate:</label>
-                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" {..._bd} style={_bd.value.length <= 0 ? {borderBottom: _bd.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <input data-testid="input-bd" type="text" name="profilebd" id="profiledb" {..._bd} style={_bd.value.length <= 0 ? {borderBottom: _bd._errorstyle} : {borderBottom: '1px solid #14142B'}}></input>
                     <label htmlFor="profilec">city:</label>
-                    <input data-testid="input-city" type="text" name="profilec" id="profilec" {..._city} style={_city.value.length <= 0 ? {borderBottom: _city.errStyle} : {borderBottom: '1px solid #14142B'}}></input>
+                    <input data-testid="input-city" type="text" name="profilec" id="profilec" {..._city} style={_city.value.length <= 0 ? {borderBottom: _city._errorstyle} : {borderBottom: '1px solid #14142B'}}></input>
                     <div className="edit-btns">
                         <button data-testid="accept" type='submit' className="accept-change"><i className="fas fa-check"></i></button>
                         <button onClick={closeCreate} type='submit' className="reject-change"><i className="fas fa-times"></i></button>

@@ -1,24 +1,38 @@
 import React from "react";
 
 import EditUser from "../../../../pages/main-component/user-components/editUser.jsx";
-import UserContext from "../../../../pages/main-component/user-components/contextUser.js";
+import { UserProvider } from "../../../../pages/main-component/user-components/contextUser.js";
 
 import { render } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
 import "@testing-library/jest-dom/extend-expect";
 
-
 describe('Users edit-user component', () => {
+    const original = window.location;
+
+    const reloadFn = () => {
+        window.location.reload(true);
+    };
+
+    beforeAll(() => {
+        Object.defineProperty(window, 'location', {
+            configurable: true,
+            value: { reload: jest.fn() },
+        });
+    });
+
+    afterAll(() => {
+        Object.defineProperty(window, 'location', { configurable: true, value: original });
+    });
+
 
     it("Users edit-user male [success]", async () => {
-        const userData = {
-            userid: 28,
-            userrole: "Admin"
-        }
+        const userId = 28;
 
         const { getByTestId } = render(
-            <UserContext.Provider value={userData}>
+            <UserProvider value={{userId}}>
                 <EditUser />
-            </UserContext.Provider>
+            </UserProvider>
         );
 
         jest.spyOn(global, "fetch").mockImplementation(() =>
@@ -30,14 +44,11 @@ describe('Users edit-user component', () => {
         const username = getByTestId("username");
         const useremail = getByTestId("useremail");
 
-        userEvent.type(username, "shz@gmail.com");
-        userEvent.type(useremail, "sh54321");
+        userEvent.type(username, "shopopalo");
+        userEvent.type(useremail, "shz@gmail.com");
 
         userEvent.click(getByTestId("accept"));
-        await waitFor(() => {
-            reloadFn(); // as defined above..
-            expect(window.location.reload).toHaveBeenCalled();
-        })
+        reloadFn();
+        expect(window.location.reload).toHaveBeenCalled();
     })
-
 });

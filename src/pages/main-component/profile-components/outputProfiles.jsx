@@ -71,7 +71,7 @@ const OutputProfiles = (props) => {
                         </div>
                         <div className="profile-btn">
                             <button data-testid="edit-btn" onClick={e => editProfile(e, profile.profileid)} className="btn-edit">edit <i className="fas fa-pencil-alt"></i></button>
-                            <button onClick={e => deleteProfile(e, profile.profileid)} className="btn-delete">delete <i className="far fa-trash-alt"></i></button>
+                            <button data-testid="del-btn" onClick={e => deleteProfile(e, profile.profileid)} className="btn-delete">delete <i className="far fa-trash-alt"></i></button>
                         </div>
                     </div>
                 ))

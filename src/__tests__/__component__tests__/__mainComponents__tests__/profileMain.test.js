@@ -8,7 +8,8 @@ import "@testing-library/jest-dom/extend-expect";
 
 describe('Profiles all-profiles component', () => {
    it('Profile test', () => {
-       expect(true).toBe(true);
+       render(
+           <ProfileMain />
+       )
    })
-
 });

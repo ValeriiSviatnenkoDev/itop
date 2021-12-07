@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 const useInput = (initial, required) => {
     const [value, setValue] = useState(initial);
-    const [errStyle, setErrStyle] = useState(null);
-    const [errMsg, setErrMsg] = useState(null);
+    const [_errorstyle, setErrStyle] = useState(null);
+    const [_errmsg, setErrMsg] = useState(null);
 
     return {
         value,
-        errStyle,
-        errMsg,
+        _errorstyle,
+        _errmsg,
         onChange: e => setValue(e.target.value),
         onBlur: e => {
             if(!e.target.value && required) {

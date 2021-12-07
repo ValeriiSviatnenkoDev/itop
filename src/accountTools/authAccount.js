@@ -58,11 +58,11 @@ const AuthAccount = () => {
             <div className="signIn-form">
                 <form onSubmit={authAccount}>
                     <label htmlFor="uEmail">Email</label>
-                    <input data-testid="email" type="email" id="uEmail" {..._useremail} style={_useremail.value.length <= 0 ? { borderBottom: _useremail.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
-                    <p>{_useremail.errMsg}</p>
+                    <input data-testid="email" type="email" id="uEmail" {..._useremail} style={_useremail.value.length <= 0 ? { borderBottom: _useremail._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
+                    <p>{_useremail._errmsg}</p>
                     <label htmlFor="uPassword">Password</label>
-                    <input data-testid="password" type="password" id="uPassword" {..._userpassword} style={_userpassword.value.length <= 0 ? { borderBottom: _userpassword.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
-                    <p>{_userpassword.errMsg}</p>
+                    <input data-testid="password" type="password" id="uPassword" {..._userpassword} style={_userpassword.value.length <= 0 ? { borderBottom: _userpassword._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
+                    <p>{_userpassword._errmsg}</p>
                     <div className="signIn-Btn">
                         <button type='submit'>Sign In</button>
                     </div>

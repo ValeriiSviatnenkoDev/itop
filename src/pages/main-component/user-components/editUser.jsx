@@ -13,7 +13,7 @@ const EditUser = () => {
     const [error, setErrorMsg] = useState('');
     const [role, setRole] = useState('');
 
-    const userData = useContext(UserContext);
+    const { userNick, userEmail, userRole, userId } = useContext(UserContext);  
 
     const sendUpdateUser = async(e) => {
         e.preventDefault();
@@ -23,19 +23,20 @@ const EditUser = () => {
             }
 
             if(_usernick.value.length <= 0) {
-                _usernick.value = userData.usernick;
+                _usernick.value = userNick;
             }
 
             if(_useremail.value.length <= 0) {
-                _useremail.value = userData.useremail;
+                _useremail.value = userEmail;
             }
 
-            const data = { "UserId": userData.userid, "UserName": _usernick.value, "UserRole": role, "UserEmail": _useremail.value };
+            const data = { "UserId": userId, "UserName": _usernick.value, "UserRole": role, "UserEmail": _useremail.value };
             const response = await fetch('http://localhost:5000/up-user/:id', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },    
                 body: JSON.stringify(data)
             });
+            
             const jsonData = await response.json();
             console.log(`Update user: ${jsonData.successMsg }`);
             window.location.reload();
@@ -54,17 +55,17 @@ const EditUser = () => {
             <div className="container-edit-user">
                 <form onSubmit={sendUpdateUser}>
                     <label for="name">nick name:</label>
-                    <input data-testid="username" type="text" id="nickname" {..._usernick} placeholder={userData.usernick} ></input>
+                    <input data-testid="username" type="text" id="nickname" {..._usernick} placeholder={userNick} style={_usernick.value.length <= 0 ? { borderBottom: _usernick._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <label for="surname">email:</label>
-                    <input type="email" id="useremail" {..._useremail} placeholder={userData.useremail} ></input>
+                    <input data-testid="useremail" type="email" id="useremail" {..._useremail} placeholder={userEmail} style={_useremail.value.length <= 0 ? { borderBottom: _useremail._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
                     <label>role:</label>
                     <div className="radio-roles">
                         <div className="role">
-                            <input type="radio" name="role" id="user" value="user" defaultChecked={userData.userrole === 'User' ? true : false} onChange={e => e.target.checked && setRole('User')}></input>
+                            <input type="radio" name="role" id="user" value="user" defaultChecked={userRole === 'User' ? true : false} onChange={e => e.target.checked && setRole('User')}></input>
                             <label for="user">user</label>
                         </div>
                         <div className="role">
-                            <input type="radio" name="role" id="admin" value="admin" defaultChecked={userData.userrole === 'Admin' ? true : false} onChange={e => e.target.checked && setRole('Admin')}></input>
+                            <input type="radio" name="role" id="admin" value="admin" defaultChecked={userRole === 'Admin' ? true : false} onChange={e => e.target.checked && setRole('Admin')}></input>
                             <label for="admin">admin</label>
                         </div>
                     </div>

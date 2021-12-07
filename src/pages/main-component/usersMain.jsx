@@ -12,7 +12,6 @@ import OutputAllUsers from "./user-components/outputAllUsers.jsx";
 import { UserProvider } from "./user-components/contextUser.js";
 
 const UsersMain = () => {
-
     const [showUser, setShowUser] = useState(false);
     const [showEditUser, setEditUser] = useState(false);
     const [isLoading, setLoading] = useState(false);

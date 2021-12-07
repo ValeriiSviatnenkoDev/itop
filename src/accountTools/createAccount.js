@@ -55,14 +55,14 @@ return (
         <div className="signUp-form">
             <form onSubmit={createAccount}>
                 <label htmlFor="userName">Username</label>
-                <input data-testid="username" type="text" id="userName" {..._username} style={_username.value.length <= 0 ? { borderBottom: _username.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
-                <p>{_username.errMsg}</p>
+                <input data-testid="username" type="text" id="userName" {..._username} style={_username.value.length <= 0 ? { borderBottom: _username._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
+                <p>{_username._errmsg}</p>
                 <label htmlFor="userEmail">Email</label>
-                <input data-testid="email" type="email" id="userEmail" {..._useremail} style={_useremail.value.length <= 0 ? { borderBottom: _useremail.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
-                <p>{_useremail.errMsg}</p>
+                <input data-testid="email" type="email" id="userEmail" {..._useremail} style={_useremail.value.length <= 0 ? { borderBottom: _useremail._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
+                <p>{_useremail._errmsg}</p>
                 <label htmlFor="userPassword">Password</label>
-                <input data-testid="password" type="password" id="userPassword" {..._userpassword} style={_userpassword.value.length <= 0 ? { borderBottom: _userpassword.errStyle } : { borderBottom: '1px solid #14142B' }}></input>
-                <p>{_userpassword.errMsg}</p>
+                <input data-testid="password" type="password" id="userPassword" {..._userpassword} style={_userpassword.value.length <= 0 ? { borderBottom: _userpassword._errorstyle } : { borderBottom: '1px solid #14142B' }}></input>
+                <p>{_userpassword._errmsg}</p>
                 <div className="signUp-checkBtn">
                     <input type="checkbox" name="radioAdmin" id="checkBox" value='User' onChange={e => e.target.checked && setURole('Admin')}></input>
                     <label htmlFor="checkBox">is admin</label>
