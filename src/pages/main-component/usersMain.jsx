@@ -37,11 +37,13 @@ const UsersMain = () => {
                         <div className="main__container-title">
                             Users:
                         </div>
+                        <div className="main__container-users">
                         {
                             isLoading &&
                             <LoadingScreen />
                         }
                             <OutputAllUsers setShowUser={setShowUser} setLoading={setLoading}/>
+                        </div>
                     </div>
             }
             </UserProvider>

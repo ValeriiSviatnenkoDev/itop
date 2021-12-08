@@ -7,6 +7,7 @@ import { ProfileProvider } from "../../../../pages/main-component/profile-compon
 import { setLocaleStorage } from "../../../../client-utils/util-locale-storage";
 import OutputProfiles from "../../../../pages/main-component/profile-components/outputProfiles";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 describe('Profile output-profiles component', () => {
     it("Profile output-profiles-render [success]", async () => {
@@ -19,8 +20,8 @@ describe('Profile output-profiles component', () => {
 
         setLocaleStorage('user', JSON.stringify(user))
 
-        const profiles = {
-            profile_1: {
+        const profiles = [
+            {
                 profileid: 1,
                 profileuserid: 2,
                 profilename: "Valerij",
@@ -29,7 +30,7 @@ describe('Profile output-profiles component', () => {
                 profilecity: "Kyiv"
             },
 
-            profile_2: {
+            {
                 profileid: 2,
                 profileuserid: 2,
                 profilename: "Sofya",
@@ -38,15 +39,15 @@ describe('Profile output-profiles component', () => {
                 profilecity: "Moscow"
             },
 
-            profile_3: {
+            {
                 profileid: 3,
                 profileuserid: 2,
                 profilename: "Veniamin",
                 profilesurname: "Beloglazov",
                 profilebd: "11.11.2026",
                 profilecity: "Moscow"
-            },
-        }
+            }
+        ]
 
         const fakeAnswer = { profiles: profiles };
 
@@ -56,11 +57,13 @@ describe('Profile output-profiles component', () => {
             })
         );
 
-        render(
-            <ProfileProvider>
-                <OutputProfiles setLoading={(bool) => { }} />
-            </ProfileProvider>
-        );
+        act(() => {
+            render(
+                <ProfileProvider>
+                    <OutputProfiles setLoading={(bool) => { }} />
+                </ProfileProvider>
+            );
+        })
 
     })
 
@@ -75,18 +78,29 @@ describe('Profile output-profiles component', () => {
 
         }
 
-        const fakeAnswer = {successMsg: `Profile where ProfileId = ${profile.profileid} has been deleted`};
+        const user = {
+            userId: 2,
+            username: 'shopopalo',
+            useremail: 'sho@gmail.com'
+        }
 
+        const fakeAnswer = { successMsg: `Profile where ProfileId = ${profile.profileid} has been deleted` };
         jest.spyOn(global, "fetch").mockImplementation(() =>
             Promise.resolve({
                 json: () => Promise.resolve(fakeAnswer)
             })
         );
 
-        render(
-            <ProfileProvider>
-                <OutputProfiles setLoading={(bool) => { }} />
-            </ProfileProvider>
-        );
+        setLocaleStorage('user', JSON.stringify(user));
+
+
+
+        act(() => {
+            render(
+                <ProfileProvider>
+                    <OutputProfiles setLoading={(bool) => { }} />
+                </ProfileProvider>
+            );
+        })
     })
 })

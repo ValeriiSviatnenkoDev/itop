@@ -37,7 +37,7 @@ const OutputUser = (props) => {
                     <p>{userEmail}</p>
                     <p className="userrole">{userRole}</p>
                     <div data-testid="control" className="control-btns">
-                        <i onClick={e => editUser(e, userId)} className="fas fa-pencil-alt"></i>
+                        <i data-testid="edituser" onClick={e => editUser(e, userId)} className="fas fa-pencil-alt"></i>
                         <i data-testid="deleteuser" onClick={deleteUser} className="far fa-trash-alt"></i>
                     </div>
                 </div>

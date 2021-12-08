@@ -39,15 +39,19 @@ describe('Profile edit-profile component', () => {
 
     const profileId = 28;
 
-    const { getByTestId, getByText } = render(
-      <ProfileProvider value={{profileId}}>
+    const { getByTestId, getByRole, getByText } = render(
+      <ProfileProvider value={{ profileId }}>
         <EditProfile />
       </ProfileProvider>
     );
 
+    const radGender = getByTestId("radio-gender");
+    const gender = getByTestId("gender");
+    const maleGender = getByRole('radio', { name: "male" });
+
+    userEvent.click(maleGender);
     const name = getByTestId("input-name");
     const surname = getByTestId("input-surname");
-    const gender = 'Male';
     const bd = getByTestId("input-bd");
     const city = getByTestId("input-city");
 
@@ -55,21 +59,24 @@ describe('Profile edit-profile component', () => {
     userEvent.type(surname, "Ponomarenko");
     userEvent.type(bd, "02.12.2000");
     userEvent.type(city, "Kyiv");
+    expect(maleGender).toBeChecked();
 
+
+    const control = getByTestId("control-profile");
     userEvent.click(getByTestId("edit-btn"));
     await waitFor(() => {
-      reloadFn(); // as defined above..
-      expect(window.location.reload).toHaveBeenCalled();
+      const message = getByText("Profile updated successfully!");
+      expect(message).toBeInTheDocument();
     })
   })
 
   it("Profile edit-profile gender undefined [unsuccess]", async () => {
 
-   
+
     const profileId = 28;
 
     const { getByTestId, getByText } = render(
-      <ProfileProvider value={{profileId}}>
+      <ProfileProvider value={{ profileId }}>
         <EditProfile />
       </ProfileProvider>
     );
@@ -85,10 +92,11 @@ describe('Profile edit-profile component', () => {
     userEvent.type(bd, "02.12.2000");
     userEvent.type(city, "Kyiv");
 
+    const control = getByTestId("control-profile");
     userEvent.click(getByTestId("edit-btn"));
     await waitFor(() => {
-      const error = getByText("Please, select profile gender!");
-      expect(error).toBeInTheDocument();
+      const message = getByText("Please, select profile gender!");
+      expect(message).toBeInTheDocument();
     })
   })
 
@@ -98,11 +106,11 @@ describe('Profile edit-profile component', () => {
         json: () => Promise.resolve(fakeAnswer)
       })
     );
-    
+
     const profileId = 28;
 
     const { getByTestId, getByText } = render(
-      <ProfileProvider value={{profileId}}>
+      <ProfileProvider value={{ profileId }}>
         <EditProfile />
       </ProfileProvider>
     );
@@ -118,10 +126,11 @@ describe('Profile edit-profile component', () => {
     userEvent.type(bd, "");
     userEvent.type(city, "");
 
+    const control = getByTestId("control-profile");
     userEvent.click(getByTestId("edit-btn"));
     await waitFor(() => {
-      const error = getByText("Please, enter new info for profile or close edit form!");
-      expect(error).toBeInTheDocument();
+      const message = getByText("Please, enter new info for profile or close edit form!");
+      expect(message).toBeInTheDocument();
     })
   })
 });

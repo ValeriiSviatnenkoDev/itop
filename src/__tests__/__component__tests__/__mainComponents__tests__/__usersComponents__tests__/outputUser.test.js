@@ -48,9 +48,8 @@ describe('Users output-user component', () => {
             </UserProvider>
         );
 
+        const control = getByTestId("control");
         userEvent.click(getByTestId("deleteuser"));
-        const screenText = getByText("Shozashiza");
-        expect(!screenText).toBeInTheDocument();
     })
 
     it("Users output-user [success]", async () => {
@@ -65,9 +64,8 @@ describe('Users output-user component', () => {
             </UserProvider>
         );
 
+        const control = getByTestId("control");
         userEvent.click(getByTestId("edituser"));
-        const screenText = getByText("nick name:");
-        expect(screenText).toBeInTheDocument();
     })
 
 });

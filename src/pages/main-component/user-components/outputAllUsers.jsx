@@ -37,20 +37,20 @@ const OutputAllUsers = (props) => {
         outputUsers();
     }, []);
 
-    return(
-        <div className="main__container-users">
-        {
-            users.map(user => (
-                <div onClick={e => openUser(e, user)} className="user-card">
-                    <div className="user-info">
-                        <p className="pTitle">{user.username}</p>
-                        <p>{user.useremail}</p>
-                        {/* <p>{contextProfiles.filter(x => x.profileuserid == user.userid).length} Profiles</p> */}
+    return (
+        <>
+            {
+                users.map(user => (
+                    <div data-testid="user-card" onClick={e => openUser(e, user)} className="user-card">
+                        <div className="user-info">
+                            <p data-testid="name" className="pTitle">{user.username}</p>
+                            <p>{user.useremail}</p>
+                             {/* <p>{contextProfiles.filter(x => x.profileuserid == user.userid).length} Profiles</p> */}
+                        </div>
                     </div>
-                </div>
-            ))
-        }
-    </div>
+                ))
+            }
+        </>
     );
 }
 
